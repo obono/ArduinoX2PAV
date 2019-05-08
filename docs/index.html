@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Arduino X2PAV Scenario Editor</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.css"/>
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="http://sortablejs.github.io/Sortable/Sortable.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+</head>
+
+<body>
+
+<h1><a href="https://github.com/obono/ArduinoX2PAV" target="_blank">Arduino X2PAV</a> Scenario Editor</h1>
+<p>Version 0.0.1 (May 9, 2019) <span id="show_help" onclick="showHelp();">&#x2754;</span></p>
+
+<div id="info">
+	The confirmation was done only with Chrome.<br>
+	License: <a href="https://github.com/obono/ArduinoX2PAV/blob/master/LICENSE" target="_blank">MIT</a><br><br>
+	Acknowledgements<br>
+	<ul>
+	<li><a href="https://sortablejs.github.io/Sortable/" target="_blank">Sortable</a> (License: <a href="https://github.com/SortableJS/Sortable#mit-license" target="_blank">MIT</a>)</li>
+	<li><a href="https://simonwep.github.io/pickr/" target="_blank">Pickr</a> (License: <a href="https://github.com/Simonwep/pickr/blob/master/LICENSE" target="_blank">MIT</a>)</li>
+	</ul>
+</div>
+
+<hr>
+
+<div id="color_picker">
+</div>
+
+<div id="bitmap_area">
+	<h2>Bitmaps</h2>
+	<div id="bitmap_list" effectAllowed="move"></div>
+</div>
+
+<div id="palette_area">
+	<h2>Palettes</h2>
+	<div id="palette_list"></div>
+	<span class="palette_control" onclick="newPalette();">&#x2795; Add new palette</span>
+</div>
+
+<div id="scene_area">
+	<h2>Scenario</h2>
+	<div class="scene_area_internal">
+		<canvas id="scene_preview" width="192" height="192"></canvas><br>
+		<span onclick="changeBackgroundColor();">Background color <span id="scene_background_color">&#x2588;</span></span>
+	</div>
+	<div class="scene_area_internal">
+		<div id="scene_list"></div>
+		<span class="scene_control" onclick="newScene();">&#x2795; Add new scene</span>
+	</div>
+</div>
+
+<div id="preview_area">
+	<h2>Preview</h2>
+	<canvas id="preview" width="192" height="192"></canvas>
+</div>
+
+<div id="download_area">
+	<a id="download" href="#" download="x2pav_data.h" onclick="handleDownload()">&#x1f4e5; Export to header file.</a>
+	Base name: <input id="download_basename" type="text" value="x2pavSample">
+</div>
+
+<div id="help_area">
+	<div id="help_area_internal">
+		<h2>How to design your scenario</h2>
+		<ol>
+			<li>Drag and drop image files into the yellow area.</li>
+			<ul>
+				<li>Width and height of each image must be 16 pixels or less.</li>
+				<li>Colors containing in the image are appended to the focusing palette.</li>
+				<li>An image is removed by click with pressing shift-key.</li>
+			</ul>
+			<li>Manage the palettes if necessary.</li>
+			<ul>
+				<li>A color can be changed by click. The order can be changed by drag and drop. A color is removed by click with pressing shift-key.</li>
+				<li>You can change focusing palette by click at a blue-circled-mark, and you can change the order by drag and drop a blue-circled-mark.</li>
+			</ul>
+			<li>Set parameters for each scene.</li>
+			<ul>
+				<li>Choose a bitmap by click one of them in the yellow area, and choose a palette by focusing one.</li>
+				<li>Set display duration. The unit of number is 1/60 second.</li>
+				<li>You can change focusing scene by click at a blue-circled-mark, and you can change the order by drag and drop a blue-circled-mark.</li>
+			</ul>
+			<li>Finally, click "Export to header file" and you will obtain a header file.</li>
+			<ul>
+				<li>The file name and variables name are decided according to "Base name".</li>
+			</ul>
+		</ol>
+		<a href="#" onclick="hideHelp();">Close</a>
+	</div>
+</div>
+
+<div id="palette_original" class="palette">
+	<span class="palette_handle" title="Focus / Move" onclick="focusPalette(this.parentNode);">&#x1f535;</span>
+	<div class="palette_colors"></div>
+	<span class="palette_control" title="Add a color" onclick="extendPalette(this.parentNode);">&#x1f3a8;</span>
+	<span class="palette_control" title="Dupplicate this palette" onclick="dupulicatePalette(this.parentNode);">&#x1f4c4;</span>
+	<span class="palette_control" title="Remove this palette" onclick="removePalette(this.parentNode);">&#x274c;</span>
+</div>
+
+<div id="scene_original" class="scene">
+	<span class="scene_handle" title="Focus / Move" onclick="focusScene(this.parentNode);">&#x1f535;</span>
+	<div class="scene_canvas"><canvas width="16" height="16"></canvas></div>
+	<span class="scene_info">
+		&#x23f1;<input type="number" min="0" max="983" value="6">
+		<input type="checkbox" checked="true" onchange="refreshScenePreview();">&#x267b;
+		<input type="checkbox" onchange="refreshScenePreview();">&#x2195;
+		<input type="checkbox" onchange="refreshScenePreview();">&#x2194;
+		<input type="checkbox" onchange="refreshScenePreview();">&#x2935;
+		X:<input type="number" min="-15" max="15" value="0" onmouseup="refreshScenePreview();" onkeyup="refreshScenePreview();">
+		Y:<input type="number" min="-15" max="15" value="0" onmouseup="refreshScenePreview();" onkeyup="refreshScenePreview();">
+	</span>
+	<span class="scene_control" title="Dupplicate this scene" onclick="dupulicateScene(this.parentNode);">&#x1f4c4;</span>
+	<span class="scene_control" title="Remove this scene" onclick="removeScene(this.parentNode);">&#x274c;</span>
+</div>
+
+<script type="text/javascript">
+const elmBitmapList = $('bitmap_list');
+const elmPaletteList = $('palette_list');
+const elmSceneList = $('scene_list');
+const elmScenePreview = $('scene_preview');
+const elmBackgroundColor = $('scene_background_color');
+const elmPreview = $('preview');
+const elmTextBaseName = $('download_basename');
+const elmPaletteOriginal = $('palette_original');
+const elmSceneOriginal = $('scene_original');
+const elmHelp = $('help_area');
+setupBitmapList();
+setupColorPicker($('color_picker'));
+Sortable.create(elmPaletteList, { handle: '.palette_handle' });
+Sortable.create(elmSceneList, { handle: '.scene_handle' });
+elmBackgroundColor.style.color = 'rgb(64, 64, 64)';
+newPalette();
+newScene();
+updatePreview();
+</script>
+
+</body>
+</html>

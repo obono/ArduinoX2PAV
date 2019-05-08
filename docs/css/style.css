@@ -1,0 +1,231 @@
+div#info {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	margin: 8px;
+	font-size: small;
+}
+
+div#bitmap_area {
+	position: absolute;
+	top: 120px;
+	left: 0px;
+	width: 864px;
+	padding: 8px;
+}
+
+div#palette_area {
+	position: absolute;
+	top: 120px;
+	left: 880px;
+	width: 424px;
+	padding: 8px;
+}
+
+div#scene_area {
+	position: absolute;
+	left: 576px;
+	top: 424px;
+	width: 728px;
+	padding: 8px;
+}
+
+canvas#scene_preview {
+	border: solid 2px #bcd;
+}
+
+div.scene_area_internal {
+	display: inline-block;
+	vertical-align: top;
+}
+
+div#preview_area {
+	position: absolute;
+	left: 0px;
+	top: 424px;
+	width: 550px;
+	padding: 8px;
+}
+
+div#download_area {
+	position: absolute;
+	left: 0px;
+	top: 800px;
+}
+
+div#help_area {
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	background: #9999;
+}
+
+div#help_area_internal {
+	position: absolute;
+	width: 75%;
+	top: 50%;
+	left: 12.5%;
+	transform: translateY(-50%);
+	padding: 0px 2.5%;
+	color: #fff;
+	background-color: #999;
+	border: solid 2px #333;
+	border-radius: 8px;
+}
+
+/*----------------------------*/
+
+div#info ul {
+	margin: 0px;
+}
+
+/*----------------------------*/
+
+div#bitmap_list {
+	background-color: #ffc;
+	border: solid 2px #cc9;
+	padding: 8px;
+}
+
+div#bitmap_list.dropover {
+	background-color: #ffe;
+}
+
+div#bitmap_list:empty:before {
+	color: #999;
+	content: "(Drag and drop image files here.)";
+}
+
+div#bitmap_list canvas {
+	margin: 8px;
+	border: solid 2px #ccc;
+}
+
+div#bitmap_list canvas.focused {
+	border: solid 2px #f00;
+}
+
+/*----------------------------*/
+
+div#palette_list {
+	display: inline-block;
+	max-height: 202px;
+	overflow: auto;
+}
+
+div.palette {
+	background-color: #eee;
+	border: solid 2px #ccc;
+}
+
+div.palette.focused {
+	background-color: #fee;
+	border: solid 2px #f00;
+}
+
+div.palette * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+span.palette_handle {
+	cursor: move;
+	padding: 0px 8px;
+}
+
+div.palette_colors {
+	width: 16em;
+	word-wrap: break-word;
+}
+
+div.palette_colors span {
+	display: inline;
+	cursor: pointer;
+}
+
+span.palette_control {
+	cursor: pointer;
+	padding: 0px 4px;
+}
+
+/*----------------------------*/
+
+div#scene_list {
+	max-height: 320px;
+	overflow:auto;
+}
+
+div.scene {
+	background-color: #def;
+	border: solid 2px #bcd;
+}
+
+div.scene.focused {
+	background-color: #eef;
+	border: solid 2px #f00;
+}
+
+div.scene * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+span.scene_handle {
+	cursor: move;
+	padding: 0px 8px;
+}
+
+div.scene_canvas {
+	width: 36px;
+	height: 36px;
+	text-align: center;
+}
+
+div.scene_canvas canvas {
+	border: solid 1px #ccc;
+}
+
+span.scene_info input[type="number"] {
+	width: 3em;
+}
+
+span.scene_control {
+	cursor: pointer;
+	padding: 0px 4px;
+}
+
+span#scene_background_color {
+	cursor: pointer;
+}
+
+/*----------------------------*/
+
+canvas#preview_animation {
+	border: solid 2px #000;
+}
+
+a#download {
+	font-size: large;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 4px;
+	background-color: #ddd;
+	border: outset 4px #eee;
+}
+
+/*----------------------------*/
+
+div#palette_original {
+	display: none;
+}
+
+div#scene_original {
+	display: none;
+}
+
+span#show_help {
+	cursor: help;
+}
