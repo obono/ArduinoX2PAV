@@ -37,7 +37,7 @@ Then, you can transfer binary data to Arduino Nano by usual way.
 
 ### Append new scenario
 
-You can design new scenario using [Arduino X2PAV Scenario Editor](https://obono.github.io/ArduinoX2PAV/).
+You can design new scenario using [Arduino X2PAV Scenario Editor](https://obono.github.io/ArduinoX2PAV/index.html).
 
 This tool outputs a header file as scenario data.
 
