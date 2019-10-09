@@ -314,9 +314,7 @@ function dupulicatePalette(elmPalette) {
 			setupColorClickListener(elmColors.children[i], elmPaletteClone);
 		}
 	} else {
-		elmPaletteClone = elmPaletteOriginal.cloneNode(true);
-		elmPaletteClone.style.display = 'block';
-		elmPaletteClone.removeAttribute('id');
+		elmPaletteClone = document.importNode(elmPaletteTemplate.content.firstElementChild, true);
 	}
 	Sortable.create(getColorsElement(elmPaletteClone), { onEnd: function() {
 		if (elmPaletteClone == elmPaletteFocused) {
@@ -413,9 +411,7 @@ function refreshSceneElementImage(elmScene) {
 }
 
 function newScene() {
-	let elmSceneClone = elmSceneOriginal.cloneNode(true);
-	elmSceneClone.style.display = 'block';
-	elmSceneClone.removeAttribute('id');
+	let elmSceneClone = document.importNode(elmSceneTemplate.content.firstElementChild, true);
 	if (elmBitmapFocused) {
 		elmSceneClone.customBitmap = elmBitmapFocused;
 	}

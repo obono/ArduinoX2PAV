@@ -218,14 +218,6 @@ a#download {
 
 /*----------------------------*/
 
-div#palette_original {
-	display: none;
-}
-
-div#scene_original {
-	display: none;
-}
-
 span#show_help {
 	cursor: help;
 }

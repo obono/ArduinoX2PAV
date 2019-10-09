@@ -17,7 +17,7 @@
 <body>
 
 <h1><a href="https://github.com/obono/ArduinoX2PAV" target="_blank">Arduino X2PAV</a> Scenario Editor</h1>
-<p>Version 0.0.1 (May 9, 2019) <span id="show_help" onclick="showHelp();">&#x2754;</span></p>
+<p>Version 0.0.2 (October 9, 2019) <span id="show_help" onclick="showHelp();">&#x2754;</span></p>
 
 <div id="info">
 	The confirmation was done only with Chrome.<br>
@@ -97,29 +97,32 @@
 	</div>
 </div>
 
-<div id="palette_original" class="palette">
-	<span class="palette_handle" title="Focus / Move" onclick="focusPalette(this.parentNode);">&#x1f535;</span>
-	<div class="palette_colors"></div>
-	<span class="palette_control" title="Add a color" onclick="extendPalette(this.parentNode);">&#x1f3a8;</span>
-	<span class="palette_control" title="Dupplicate this palette" onclick="dupulicatePalette(this.parentNode);">&#x1f4c4;</span>
-	<span class="palette_control" title="Remove this palette" onclick="removePalette(this.parentNode);">&#x274c;</span>
-</div>
-
-<div id="scene_original" class="scene">
-	<span class="scene_handle" title="Focus / Move" onclick="focusScene(this.parentNode);">&#x1f535;</span>
-	<div class="scene_canvas"><canvas width="16" height="16"></canvas></div>
-	<span class="scene_info">
-		&#x23f1;<input type="number" min="0" max="983" value="6">
-		<input type="checkbox" checked="true" onchange="refreshScenePreview();">&#x267b;
-		<input type="checkbox" onchange="refreshScenePreview();">&#x2195;
-		<input type="checkbox" onchange="refreshScenePreview();">&#x2194;
-		<input type="checkbox" onchange="refreshScenePreview();">&#x2935;
-		X:<input type="number" min="-15" max="15" value="0" onmouseup="refreshScenePreview();" onkeyup="refreshScenePreview();">
-		Y:<input type="number" min="-15" max="15" value="0" onmouseup="refreshScenePreview();" onkeyup="refreshScenePreview();">
-	</span>
-	<span class="scene_control" title="Dupplicate this scene" onclick="dupulicateScene(this.parentNode);">&#x1f4c4;</span>
-	<span class="scene_control" title="Remove this scene" onclick="removeScene(this.parentNode);">&#x274c;</span>
-</div>
+<template id="palette_template">
+	<div class="palette">
+		<span class="palette_handle" title="Focus / Move" onclick="focusPalette(this.parentNode);">&#x1f535;</span>
+		<div class="palette_colors"></div>
+		<span class="palette_control" title="Add a color" onclick="extendPalette(this.parentNode);">&#x1f3a8;</span>
+		<span class="palette_control" title="Dupplicate this palette" onclick="dupulicatePalette(this.parentNode);">&#x1f4c4;</span>
+		<span class="palette_control" title="Remove this palette" onclick="removePalette(this.parentNode);">&#x274c;</span>
+	</div>
+</template>
+<template id="scene_template">
+	<div class="scene">
+		<span class="scene_handle" title="Focus / Move" onclick="focusScene(this.parentNode);">&#x1f535;</span>
+		<div class="scene_canvas"><canvas width="16" height="16"></canvas></div>
+		<span class="scene_info">
+			&#x23f1;<input type="number" min="0" max="983" value="6">
+			<input type="checkbox" checked="true" onchange="refreshScenePreview();">&#x267b;
+			<input type="checkbox" onchange="refreshScenePreview();">&#x2195;
+			<input type="checkbox" onchange="refreshScenePreview();">&#x2194;
+			<input type="checkbox" onchange="refreshScenePreview();">&#x2935;
+			X:<input type="number" min="-15" max="15" value="0" onmouseup="refreshScenePreview();" onkeyup="refreshScenePreview();">
+			Y:<input type="number" min="-15" max="15" value="0" onmouseup="refreshScenePreview();" onkeyup="refreshScenePreview();">
+		</span>
+		<span class="scene_control" title="Dupplicate this scene" onclick="dupulicateScene(this.parentNode);">&#x1f4c4;</span>
+		<span class="scene_control" title="Remove this scene" onclick="removeScene(this.parentNode);">&#x274c;</span>
+	</div>
+</template>
 
 <script type="text/javascript">
 const elmBitmapList = $('bitmap_list');
@@ -129,8 +132,8 @@ const elmScenePreview = $('scene_preview');
 const elmBackgroundColor = $('scene_background_color');
 const elmPreview = $('preview');
 const elmTextBaseName = $('download_basename');
-const elmPaletteOriginal = $('palette_original');
-const elmSceneOriginal = $('scene_original');
+const elmPaletteTemplate = $('palette_template');
+const elmSceneTemplate = $('scene_template');
 const elmHelp = $('help_area');
 setupBitmapList();
 setupColorPicker($('color_picker'));
