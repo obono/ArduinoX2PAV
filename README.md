@@ -11,7 +11,7 @@ The screen is turned off automatically after idling for 30 seconds, and it resum
 
 ## Hardware
 
-### Materials
+### Components
 
 * [Arduino Nano](https://store.arduino.cc/usa/arduino-nano) (or compatible product)
 * [Unicorn HAT HD](https://shop.pimoroni.com/products/unicorn-hat-hd)
@@ -65,4 +65,4 @@ To append the scenario you designed, edit "ArduinoX2PAV.ino".
 
 ### License
 
-These codes are licensed under [MIT-License](LICENSE).
+These codes are licensed under [MIT License](LICENSE).
